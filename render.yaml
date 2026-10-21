@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: autonomous-data-analyst-copilot-api
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    dockerCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+
+  - type: web
+    name: autonomous-data-analyst-copilot-ui
+    runtime: docker
+    plan: starter
+    dockerCommand: streamlit run frontend/streamlit_app.py --server.port $PORT --server.address 0.0.0.0
